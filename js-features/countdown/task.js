@@ -2,26 +2,28 @@ const timer = document.getElementById("timer");
 
 function counterSeconds() {
     if(timer.textContent === '0') {
-        clearInterval(idInterval);        
-        alert("Вы победили в конкурсе");        
-        return window.location = 'https://ru.wallpaper.mob.org/image/other-kubiki-voda-vsplesk-chernii-74123.html';//Повышенный уровень сложности #2 
-    }; 
-     return timer.textContent--;    
+        clearInterval(idInterval);
+        return alert("Вы победили в конкурсе");
+    };
+
+    timer.textContent--;    
 };
 
 idInterval = setInterval(counterSeconds, 1000);
 
 
-//Повышенный уровень сложности #1 
+//Повышенный уровень сложности #1 & #2
 
-/*const timerHours = document.getElementById("timer_hours");
+/*const timerHours = document.getElementById("timer_hours"), link = document.getElementById("link")
 
 let hours = timerHours.textContent.slice(0, 2), minutes = timerHours.textContent.slice(3, 5), seconds = timerHours.textContent.slice(6);
 
 function counterHours() {
     if(timerHours.textContent === '00:00:00') {
-        clearInterval(idInterval);        
-        return alert("Вы победили в конкурсе");
+        clearInterval(idInterval);
+        alert("Вы победили в конкурсе");
+        link.href ='https://w.forfun.com/fetch/3f/3f6eaa57ddb91b3bede5e6abdd78f8e3.jpeg?h=900&r=0.5';                
+        return link.click();
     };
 
     if (seconds === 0) {
