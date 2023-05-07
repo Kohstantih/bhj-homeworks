@@ -4,27 +4,41 @@ class Game {
     this.wordElement = container.querySelector('.word');
     this.winsElement = container.querySelector('.status__wins');
     this.lossElement = container.querySelector('.status__loss');
+    this.timerElement = container.querySelector('.status__timer');
+    this.intervalId = 1;   
 
     this.reset();
 
     this.registerEvents();
   }
 
+
   reset() {
     this.setNewWord();
     this.winsElement.textContent = 0;
-    this.lossElement.textContent = 0;
+    this.lossElement.textContent = 0;    
+  }
+
+  timerCount() {
+    this.intervalId = setInterval(() => {      
+      if(+this.timerElement.textContent === 0) {
+        this.fail();
+      };
+      
+      this.timerElement.textContent--;      
+    },1000);
   }
 
   registerEvents() {
-    /*
-      TODO:
-      Написать обработчик события, который откликается
-      на каждый введённый символ.
-      В случае правильного ввода слова вызываем this.success()
-      При неправильном вводе символа - this.fail();
-      DOM-элемент текущего символа находится в свойстве this.currentSymbol.
-     */
+    document.addEventListener('keyup', () => {
+      if(event.code === 'AltLeft' || event.code === 'ShiftLeft' || event.code === 'ControlLeft') {        
+        return;
+      } else if (event.key.toLowerCase().charCodeAt() === this.currentSymbol.textContent.toLowerCase().charCodeAt()) {
+        this.success();        
+      } else {
+        this.fail();        
+      };
+    });
   }
 
   success() {
@@ -53,24 +67,29 @@ class Game {
   }
 
   setNewWord() {
+    clearInterval(this.intervalId);
+
     const word = this.getWord();
 
     this.renderWord(word);
+
+    this.timerElement.textContent = this.wordElement.querySelectorAll('.symbol').length;
+    this.timerCount();    
   }
 
   getWord() {
     const words = [
         'bob',
-        'awesome',
-        'netology',
-        'hello',
-        'kitty',
-        'rock',
-        'youtube',
-        'popcorn',
-        'cinema',
-        'love',
-        'javascript'
+        'awesome день',
+        'учиться в netology',
+        'hello Мир',
+        'маленький kitty',
+        'rock за бобров',
+        'смотри на youtube',
+        'popcorn в кинотеатре',
+        'поход в cinema',
+        'love это',
+        'изучаю javascript'
       ],
       index = Math.floor(Math.random() * words.length);
 
@@ -90,5 +109,4 @@ class Game {
   }
 }
 
-new Game(document.getElementById('game'))
-
+new Game(document.getElementById('game'));
