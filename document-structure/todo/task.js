@@ -23,6 +23,7 @@ btn.addEventListener('click', addToDo);
 
 function addToDo(e) {
     if ((e.keyCode === 13 || e.currentTarget == btn) && input.value.trim().length > 0) {
+        e.preventDefault();
         const task = document.createElement('div');
         task.classList.add('task');
         card.appendChild(task);
